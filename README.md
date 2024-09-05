@@ -5,6 +5,12 @@ Required packages:
 * python3-ntplib
 * python3-tk
 
+Run the program by click on:
+* nv.py
+
+or run the following to install the program in the GNOME environment:
+* install.sh
+
 
 Example:
 

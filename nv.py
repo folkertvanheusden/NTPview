@@ -11,10 +11,13 @@ root = tkinter.Tk()
 root.title("NTPview")
 root.geometry('800x600')
 
-label = tkinter.Label(root, text = "enter hostname:")
+frame= tkinter.Frame(root, relief= 'sunken')
+frame.pack(fill=tkinter.BOTH, expand= True, padx=20, pady=20)
+
+label = tkinter.Label(frame, text = "enter hostname:")
 label.grid(column=0, row=0)
 
-entry = tkinter.Entry(root, width=64)
+entry = tkinter.Entry(frame, width=64)
 entry.grid(column=1, row=0)
 
 entries = (
@@ -34,9 +37,9 @@ entries = (
 )
 
 def put_row(nr, key, value):
-    label = tkinter.Label(root, text = key)
+    label = tkinter.Label(frame, text = key)
     label.grid(column=0, row=nr)
-    label = tkinter.Label(root, text = value)
+    label = tkinter.Label(frame, text = value)
     label.grid(column=1, row=nr)
 
 def time_str(v):
@@ -80,7 +83,7 @@ def click():
         except socket.gaierror as e:
             tkinter.messagebox.showinfo('hostname', f'hostname invalid: {e}')
 
-button = tkinter.Button(root, text = "Probe NTP server", command=click)
+button = tkinter.Button(frame, text = "Probe NTP server", command=click)
 button.grid(column=0, row=1)
 
 entry.focus_set()

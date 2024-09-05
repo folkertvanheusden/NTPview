@@ -9,38 +9,27 @@ import tkinter.messagebox
 
 root = tkinter.Tk()
 root.title("NTPview")
-root.geometry('800x600')
+#root.geometry('800x600')
 
-frame= tkinter.Frame(root, relief= 'sunken')
-frame.pack(fill=tkinter.BOTH, expand= True, padx=20, pady=20)
+frame = tkinter.Frame(root, relief='sunken')
+frame.pack(fill=tkinter.BOTH, expand=True, padx=20, pady=20)
 
-label = tkinter.Label(frame, text = "enter hostname:")
+label = tkinter.Label(frame, text="enter hostname:")
 label.grid(column=0, row=0)
 
 entry = tkinter.Entry(frame, width=64)
 entry.grid(column=1, row=0)
 
-entries = (
-        'leap second indicator',
-        'version',
-        'mode',
-        'stratum',
-        'poll interval',
-        'precision',
-        'root delay',
-        'root dispersion',
-        'reference clock identifier',
-        'reference timestamp',
-        'originate timestamp',
-        'receive timestamp',
-        'transmit timestamp'
-)
+elements = []
 
 def put_row(nr, key, value):
-    label = tkinter.Label(frame, text = key)
-    label.grid(column=0, row=nr)
-    label = tkinter.Label(frame, text = value)
-    label.grid(column=1, row=nr)
+    global elements
+    label1 = tkinter.Label(frame, text=key)
+    label1.grid(column=0, row=nr)
+    elements.append(label1)
+    label2 = tkinter.Label(frame, text=value)
+    label2.grid(column=1, row=nr)
+    elements.append(label2)
 
 def time_str(v):
     struct_now = time.localtime(v)
@@ -51,6 +40,7 @@ def ms_value(v):
     return f'{v * 1000:.6f} ms'
 
 def click():
+    global elements
     value = entry.get()
 
     if value == '':
@@ -62,8 +52,13 @@ def click():
             print(ip)
             
             c = ntplib.NTPClient()
-            response = c.request(ip, version=3)
+            response = c.request(ip)
 
+            for element in elements:
+                element.grid_remove()
+                del element
+
+            elements = []
             put_row(3, 'leap second indicator', f'{ntplib.leap_to_text(response.leap)}')
             put_row(4, 'version', f'{response.version}')
             put_row(5, 'mode', f'{ntplib.mode_to_text(response.mode)}')
@@ -79,6 +74,10 @@ def click():
             put_row(15, 'receive timestamp', f'{time_str(response.recv_time)}')
             put_row(16, 'originate timestamp', f'{time_str(response.orig_time)}')
             put_row(17, 'reference timestamp', f'{time_str(response.ref_time)}')
+
+            label_ip = tkinter.Label(frame, text=ip)
+            label_ip.grid(column=1, row=1)
+            elements.append(label_ip)
 
         except socket.gaierror as e:
             tkinter.messagebox.showinfo('hostname', f'hostname invalid: {e}')

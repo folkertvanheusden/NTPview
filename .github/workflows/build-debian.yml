@@ -25,7 +25,7 @@ jobs:
     - name: Upload Debian package artifact
       uses: actions/upload-artifact@v3
       with:
-        name: my-package
+        name: NTPview
         path: ntpview_*
 
   publish-debian:

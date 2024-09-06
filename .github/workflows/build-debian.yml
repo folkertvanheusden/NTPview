@@ -23,24 +23,7 @@ jobs:
         (mkdir temp ; tar cf - * | (cd temp ; tar xf -) ; cd temp ; dpkg-buildpackage -us -uc)
 
     - name: Upload Debian package artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: NTPview
         path: ntpview_*
-
-  publish-debian:
-    needs: build-debian
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/debian'  # Only publish on the main branch
-
-    steps:
-    - name: Download built package
-      uses: actions/download-artifact@v3
-      with:
-        name: NTPview
-
-    - name: Publish package to APT repository
-      run: |
-        # Replace with your custom upload script or deploy to an APT repository
-        echo "Publishing to repository..."
-

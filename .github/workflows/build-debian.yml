@@ -1,0 +1,46 @@
+name: Build and publish Debian package
+
+on:
+  push:
+    branches:
+      - debian  # or whichever branch you want to trigger the build
+
+jobs:
+  build-debian:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-ntplib python3-tk
+
+    - name: Build the Debian package
+      run: |
+        debuild -us -uc
+
+    - name: Upload Debian package artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-package
+        path: ../*.deb
+
+  publish-debian:
+    needs: build-debian
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/debian'  # Only publish on the main branch
+
+    steps:
+    - name: Download built package
+      uses: actions/download-artifact@v3
+      with:
+        name: NTPview
+
+    - name: Publish package to APT repository
+      run: |
+        # Replace with your custom upload script or deploy to an APT repository
+        echo "Publishing to repository..."
+

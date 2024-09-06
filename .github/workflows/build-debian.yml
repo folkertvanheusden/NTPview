@@ -26,7 +26,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: my-package
-        path: ../ntpview_*.buildinfo ../ntpview_*.changes ../ntpview_*.deb ../ntpview_*.dsc ../ntpview_*.tar.gz
+        path: ../ntpview_*
 
   publish-debian:
     needs: build-debian

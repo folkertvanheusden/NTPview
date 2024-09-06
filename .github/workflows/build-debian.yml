@@ -17,17 +17,16 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y python3-ntplib python3-tk debhelper
-        mkdir output
 
     - name: Build the Debian package
       run: |
-        DH_OPTIONS="--destdir=output" dpkg-buildpackage -us -uc
+        (mkdir temp ; cp -a * temp ; cd temp ; dpkg-buildpackage -us -uc)
 
     - name: Upload Debian package artifact
       uses: actions/upload-artifact@v3
       with:
         name: my-package
-        path: output/ntpview_*
+        path: ntpview_*
 
   publish-debian:
     needs: build-debian

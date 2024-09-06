@@ -13,3 +13,5 @@ jobs:
         include:
           - name: Debian-12
             image: "debian:bookworm"
+    steps:
+      - uses: actions/checkout@v4

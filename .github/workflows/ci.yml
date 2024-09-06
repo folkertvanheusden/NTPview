@@ -15,6 +15,10 @@ jobs:
             image: "debian:bookworm"
     steps:
       - uses: actions/checkout@v4
+      - name: create sample script
+        run: |
+          mkdir -p .debpkg/
+          cp -a debian .debpkg/DEBIAN
       - uses: jiro4989/build-deb-action@v3
         with:
           package: NTPview

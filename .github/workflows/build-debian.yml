@@ -20,13 +20,13 @@ jobs:
 
     - name: Build the Debian package
       run: |
-        debuild -us -uc
+        dpkg-buildpackage -us -uc
 
     - name: Upload Debian package artifact
       uses: actions/upload-artifact@v3
       with:
         name: my-package
-        path: ../*.deb
+        path: ../ntpview_*.buildinfo ../ntpview_*.changes ../ntpview_*.deb ../ntpview_*.dsc ../ntpview_*.tar.gz
 
   publish-debian:
     needs: build-debian

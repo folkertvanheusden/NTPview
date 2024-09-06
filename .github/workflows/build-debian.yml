@@ -20,13 +20,13 @@ jobs:
 
     - name: Build the Debian package
       run: |
-        dpkg-buildpackage -us -uc
+        DH_OPTIONS="--destdir=output" dpkg-buildpackage -us -uc
 
     - name: Upload Debian package artifact
       uses: actions/upload-artifact@v3
       with:
         name: my-package
-        path: ../ntpview_*
+        path: output/ntpview_*
 
   publish-debian:
     needs: build-debian

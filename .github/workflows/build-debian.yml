@@ -20,7 +20,7 @@ jobs:
 
     - name: Build the Debian package
       run: |
-        (mkdir temp ; cp -a * temp ; cd temp ; dpkg-buildpackage -us -uc)
+        (mkdir temp ; cp -na * temp ; cd temp ; dpkg-buildpackage -us -uc)
 
     - name: Upload Debian package artifact
       uses: actions/upload-artifact@v3

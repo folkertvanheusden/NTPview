@@ -3,7 +3,7 @@ Maintainer: Folkert van Heusden <mail@vanheusden.com>
 Section: net
 Priority: optional
 Standards-Version: 4.5.0
-Build-Depends: debhelper-compat (= 12), python3-ntplib, python3-tk
+Build-Depends: debhelper-compat, python3-ntplib, python3-tk
 Homepage: https://github.com/folkertvanheusden/NTPview
 
 Package: ntpview

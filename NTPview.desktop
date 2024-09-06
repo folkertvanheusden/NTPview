@@ -4,6 +4,6 @@ Encoding=UTF-8
 Name=NTPview
 Comment=A simple NTP server prober
 Icon=/usr/share/NTPview.xpm
-Exec=/usr/local/bin/nv.py
+Exec=/usr/bin/nv.py
 Terminal=false
 Categories=NTP

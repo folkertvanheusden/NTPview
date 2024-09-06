@@ -15,3 +15,13 @@ jobs:
             image: "debian:bookworm"
     steps:
       - uses: actions/checkout@v4
+      - uses: jiro4989/build-deb-action@v3
+        with:
+          package: NTPview
+          package_root: .debpkg
+          maintainer: Folkert van Heusden
+          version: ${{ github.ref }} # refs/tags/v*.*.*
+          arch: 'any'
+          depends: 'python3-ntplib, python3-tk'
+          desc: 'A simple NTP server prober with a GUI.'
+          homepage: 'https://github.com/folkertvanheusden/NTPview'

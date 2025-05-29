@@ -16,7 +16,7 @@ jobs:
     - name: Set up dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y python3-ntplib python3-tk debhelper
+        sudo apt-get install -y python3-ntplib python3-tk debhelper build-essential
 
     - name: Build the Debian package
       run: |

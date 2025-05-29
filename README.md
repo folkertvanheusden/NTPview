@@ -7,6 +7,7 @@ Required packages:
 
 Run the program by click on:
 * nv.py
+When installed as a debian package, it should be in the gnome menu.
 
 
 Example:

@@ -50,30 +50,33 @@ def click():
         try:
             ip = socket.gethostbyname(value)
             print(ip)
-            
-            c = ntplib.NTPClient()
-            response = c.request(ip)
 
             for element in elements:
                 element.grid_remove()
                 del element
-
             elements = []
-            put_row(3, 'leap second indicator', f'{ntplib.leap_to_text(response.leap)}')
-            put_row(4, 'version', f'{response.version}')
-            put_row(5, 'mode', f'{ntplib.mode_to_text(response.mode)}')
-            put_row(6, 'stratum', f'{ntplib.stratum_to_text(response.stratum)}')
-            put_row(7, 'poll interval', f'{response.poll}')
-            put_row(8, 'precision', f'{response.precision}')
-            put_row(9, 'root delay', f'{ms_value(response.root_delay)}')
-            put_row(10, 'root dispersion', f'{ms_value(response.root_dispersion)}')
-            put_row(11, 'reference id', f'{ntplib.ref_id_to_text(response.ref_id)}')
-            put_row(12, 'offset', f'{ms_value(response.offset)}')
-            put_row(13, 'delay', f'{ms_value(response.delay)}')
-            put_row(14, 'transmit timestamp', f'{time_str(response.tx_time)}')
-            put_row(15, 'receive timestamp', f'{time_str(response.recv_time)}')
-            put_row(16, 'originate timestamp', f'{time_str(response.orig_time)}')
-            put_row(17, 'reference timestamp', f'{time_str(response.ref_time)}')
+
+            try:
+                c = ntplib.NTPClient()
+                response = c.request(ip)
+
+                put_row(3, 'leap second indicator', f'{ntplib.leap_to_text(response.leap)}')
+                put_row(4, 'version', f'{response.version}')
+                put_row(5, 'mode', f'{ntplib.mode_to_text(response.mode)}')
+                put_row(6, 'stratum', f'{ntplib.stratum_to_text(response.stratum)}')
+                put_row(7, 'poll interval', f'{response.poll}')
+                put_row(8, 'precision', f'{response.precision}')
+                put_row(9, 'root delay', f'{ms_value(response.root_delay)}')
+                put_row(10, 'root dispersion', f'{ms_value(response.root_dispersion)}')
+                put_row(11, 'reference id', f'{ntplib.ref_id_to_text(response.ref_id)}')
+                put_row(12, 'offset', f'{ms_value(response.offset)}')
+                put_row(13, 'delay', f'{ms_value(response.delay)}')
+                put_row(14, 'transmit timestamp', f'{time_str(response.tx_time)}')
+                put_row(15, 'receive timestamp', f'{time_str(response.recv_time)}')
+                put_row(16, 'originate timestamp', f'{time_str(response.orig_time)}')
+                put_row(17, 'reference timestamp', f'{time_str(response.ref_time)}')
+            except Exception as e:
+                put_row(3, 'Cannot reach NTP server', f'{str(e)}')
 
             label_ip = tkinter.Label(frame, text=ip)
             label_ip.grid(column=1, row=1)
